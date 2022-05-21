@@ -1,0 +1,40 @@
+apply plugin: "java"
+
+version '1.0'
+
+sourceCompatibility = 1.8
+
+sourceSets.main.java.srcDirs = ["src"]
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+repositories{
+    mavenCentral()
+    maven{ url 'https://www.jitpack.io' }
+    maven{url "https://plugins.gradle.org/m2/"}
+}
+
+ext{
+    //the build number that this plugin is made for
+    mindustryVersion = 'v126.2'
+}
+
+dependencies{
+    compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
+    // implementation 'org.python:jython-slim:2.7.2'
+    compileOnly files('lib/jars/jython.jar')
+}   
+
+jar{
+    archiveFileName = "${project.archivesBaseName}.jar"
+    from{
+        configurations.runtimeClasspath.collect{it.isDirectory() ? it : zipTree(it)}
+    }
+
+    from(rootDir){
+        include "plugin.json"
+    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}

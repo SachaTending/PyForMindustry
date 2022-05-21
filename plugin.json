@@ -1,0 +1,7 @@
+{
+  "name": "PyForMindustry",
+  "author": "TendingStream73",
+  "main": "tending.PyForMindustry",
+  "description": "A plugin that integrates jython to mindustry.",
+  "version": 1.0
+}
